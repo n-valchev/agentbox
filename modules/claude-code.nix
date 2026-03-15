@@ -1,6 +1,8 @@
 # Claude Code configuration module
-{ config, lib, pkgs, ... }:
-let cfg = config.agentbox.claudecode;
+{ config, lib, pkgs, unstablePkgs ? null, ... }:
+let
+  cfg = config.agentbox.claudecode;
+  claudeCodePkg = if unstablePkgs != null then unstablePkgs.claude-code else pkgs.claude-code;
 in
 {
   options.agentbox.claudecode = {
@@ -19,7 +21,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.claude-code ];
+    environment.systemPackages = [ claudeCodePkg ];
 
     agentbox.hostShares = lib.mkIf cfg.syncConfigFromHost [{
       tag = "host-claude-code";

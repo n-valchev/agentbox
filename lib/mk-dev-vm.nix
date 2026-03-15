@@ -1,5 +1,5 @@
 # Helper function to create a NixOS VM configuration
-{ nixpkgs, gotha-nixpkgs ? null }:
+{ nixpkgs, nixpkgs-unstable ? null, gotha-nixpkgs ? null }:
 { hostSystem
 , modules ? []
 , extraConfig ? {}
@@ -20,6 +20,11 @@ let
   gothaPkgs = if gotha-nixpkgs != null
     then gotha-nixpkgs.packages.${guestSystem}
     else {};
+
+  # Unstable packages for getting latest versions (with unfree allowed)
+  unstablePkgs = if nixpkgs-unstable != null
+    then import nixpkgs-unstable { system = guestSystem; config.allowUnfree = true; }
+    else null;
 
 in
 nixpkgs.lib.nixosSystem {
@@ -44,7 +49,7 @@ nixpkgs.lib.nixosSystem {
   ] ++ modules;
 
   specialArgs = {
-    inherit hostPkgs hostSystem gothaPkgs;
+    inherit hostPkgs hostSystem gothaPkgs unstablePkgs;
   };
 }
 

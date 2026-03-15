@@ -1,8 +1,8 @@
 # Library functions for the development VM flake
-{ nixpkgs, gotha-nixpkgs ? null }:
+{ nixpkgs, nixpkgs-unstable ? null, gotha-nixpkgs ? null }:
 {
   # Create a VM configuration for a specific host system
-  mkDevVm = import ./mk-dev-vm.nix { inherit nixpkgs gotha-nixpkgs; };
+  mkDevVm = import ./mk-dev-vm.nix { inherit nixpkgs nixpkgs-unstable gotha-nixpkgs; };
 
   # Create wrapper scripts for running the VM
   mkVmRunner = import ./mk-vm-runner.nix;

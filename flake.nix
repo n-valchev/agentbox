@@ -3,17 +3,18 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     gotha-nixpkgs.url = "github:gotha/nixpkgs";
   };
 
-  outputs = { self, nixpkgs, gotha-nixpkgs }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, gotha-nixpkgs }:
   let
     # Support Linux and Darwin (macOS) hosts
     allSystems = [ "aarch64-linux" "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ];
     forAllSystems = nixpkgs.lib.genAttrs allSystems;
 
     # Import library functions
-    lib = import ./lib { inherit nixpkgs gotha-nixpkgs; };
+    lib = import ./lib { inherit nixpkgs nixpkgs-unstable gotha-nixpkgs; };
 
   in {
     # Export NixOS modules for consumption by other flakes
