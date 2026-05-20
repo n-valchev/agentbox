@@ -200,6 +200,34 @@ in
             description = "Patterns to exclude when copying source (rsync --exclude format)";
           };
         };
+
+        mount = {
+          exclude = {
+            enable = mkOption {
+              type = types.bool;
+              default = defaults.project.source.mount.exclude.enable;
+              description = ''
+                Whether to enable shadow bind-mounts for excluded paths.
+                Set to false to disable even if an ignore file exists.
+                Only applies when source.type = "mount".
+              '';
+            };
+
+            ignoreFile = mkOption {
+              type = types.str;
+              default = defaults.project.source.mount.exclude.ignoreFile;
+              description = ''
+                Name of the ignore file (relative to project root) listing paths to
+                shadow with VM-local bind mounts. Uses gitignore-compatible syntax
+                parsed by Python pathspec (gitwildmatch). Patterns match against
+                top-level project entries only.
+                Set to an alternative like ".gitignore" to reuse existing ignore files.
+                Only applies when source.type = "mount".
+              '';
+              example = ".gitignore";
+            };
+          };
+        };
       };
 
       destPath = mkOption {

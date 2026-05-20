@@ -10,6 +10,12 @@
   # Project source: mount tests (M1-M6)
   project-mount = import ./project-mount.nix { inherit pkgs self; };
 
+  # Project source: mount exclude tests (ME1-ME17)
+  project-mount-excludes = import ./project-mount-excludes.nix { inherit pkgs self; };
+  project-mount-excludes-noignore = import ./project-mount-excludes-noignore.nix { inherit pkgs self; };
+  project-mount-excludes-custom = import ./project-mount-excludes-custom.nix { inherit pkgs self; };
+  project-mount-excludes-disabled = import ./project-mount-excludes-disabled.nix { inherit pkgs self; };
+
   # Project source: copy tests (C1-C6)
   project-copy = import ./project-copy.nix { inherit pkgs self; };
 

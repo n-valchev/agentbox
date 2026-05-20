@@ -46,6 +46,12 @@
       copy = {
         excludePatterns = []; # Empty by default, user must specify
       };
+      mount = {
+        exclude = {
+          enable = true;        # Enable shadow bind-mounts for excluded paths
+          ignoreFile = ".agentboxignore"; # Ignore file relative to project root
+        };
+      };
     };
     destPath = "/home/dev/project";
     marker = "flake.nix";    # File that identifies project root

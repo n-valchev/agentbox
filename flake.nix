@@ -37,16 +37,16 @@
     inherit lib;
 
     extraConfig = {
-      #agentbox.docker.enable = true;
-      #agentbox.docker.syncConfigFromHost = true;
+      agentbox.docker.enable = true;
+      agentbox.docker.syncConfigFromHost = true;
 
-      #agentbox.auggie.enable = true;
-      #agentbox.auggie.syncConfigFromHost = true;
+      agentbox.claudecode.enable = true;
+      agentbox.claudecode.syncConfigFromHost = false;
 
-      #agentbox.project = {
-      #  source.type = "copy";
-      #  marker = "go.mod";
-      #};
+      agentbox.project = {
+       source.type = "mount";
+       marker = "config.nix";
+      };
     };
 
     # NixOS VM configurations for each host system
